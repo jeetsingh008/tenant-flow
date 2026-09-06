@@ -38,4 +38,10 @@ export class TenantService {
       }
     })
   }
+
+  suspendTenant(id: number){
+    this.tenants.update((current) => 
+      current.map(t => t.id === id ? {...t, status: 'Suspended'} : t)
+    )
+  }
 }
