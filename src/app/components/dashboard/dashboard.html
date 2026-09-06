@@ -35,6 +35,7 @@
                 </span>
               </td>
               <td>
+              <button [routerLink]="['/tenant', tenant.id]">View</button>
                 @if (tenant.status === 'Active') {
                   <button (click)="onSuspend(tenant.id)">Suspend</button>
                 }

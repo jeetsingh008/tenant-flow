@@ -1,0 +1,16 @@
+<div class="detail-container">
+    <button routerLink="/">Back to Dashboard</button>
+
+     @if(isLoading()){
+      <p>Loading tenant details...</p>
+     } @else if(tenantDetails()){
+        <div class="card">
+      <h2>{{ tenantDetails().name }}</h2>
+      <p><strong>Email:</strong> {{ tenantDetails().email }}</p>
+      <p><strong>Phone:</strong> {{ tenantDetails().phone }}</p>
+      <p><strong>Website:</strong> {{ tenantDetails().website }}</p>
+      <p><strong>Company:</strong> {{ tenantDetails().company.name }}</p>
+      <p><strong>Catchphrase:</strong> "{{ tenantDetails().company.catchPhrase }}"</p>
+    </div>
+     }
+</div>
