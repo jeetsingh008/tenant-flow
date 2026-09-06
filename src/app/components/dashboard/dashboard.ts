@@ -1,16 +1,20 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Tenant, TenantService } from '../../../services/tenant';
+import { FormsModule } from '@angular/forms';
+import { TenantService } from '../../../services/tenant';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
   tenantService = inject(TenantService);
-  tenants = signal<Tenant[]>([]);
-  isLoading = signal<boolean>(false);
+  
+  // Bind directly to the service's signals
+  tenants = this.tenantService.tenants;
+  isLoading = this.tenantService.isLoading;
 
   searchQuery = signal<string>('');
 

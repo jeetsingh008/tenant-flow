@@ -1,1 +1,50 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <header>
+    <h2>White-Label Tenant Management</h2>
+    <input 
+      type="text" 
+      [ngModel]="searchQuery()" 
+      (ngModelChange)="searchQuery.set($event)" 
+      placeholder="Search clients..." 
+    />
+  </header>
+
+  <main>
+    @if (isLoading()) {
+      <p>Loading tenant data...</p>
+    } @else {
+      <table class="tenant-table">
+        <thead>
+          <tr>
+            <th>Client Name</th>
+            <th>Email</th>
+            <th>Organization</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tenant of filteredTenants(); track tenant.id) {
+            <tr>
+              <td>{{ tenant.name }}</td>
+              <td>{{ tenant.email }}</td>
+              <td>{{ tenant.company.name }}</td>
+              <td>
+                <span [class]="tenant.status === 'Active' ? 'badge-green' : 'badge-red'">
+                  {{ tenant.status }}
+                </span>
+              </td>
+              <td>
+                @if (tenant.status === 'Active') {
+                  <button (click)="onSuspend(tenant.id)">Suspend</button>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="5">No tenants found matching your search.</td></tr>
+          }
+        </tbody>
+      </table>
+    }
+  </main>
+</div>
