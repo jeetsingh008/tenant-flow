@@ -1,16 +1,32 @@
 <div class="detail-container">
-    <button routerLink="/">Back to Dashboard</button>
+    <button class="back-btn" routerLink="/">← Back to Dashboard</button>
 
      @if(isLoading()){
-      <p>Loading tenant details...</p>
+      <div class="loading-text">Loading tenant details...</div>
      } @else if(tenantDetails()){
-        <div class="card">
-      <h2>{{ tenantDetails().name }}</h2>
-      <p><strong>Email:</strong> {{ tenantDetails().email }}</p>
-      <p><strong>Phone:</strong> {{ tenantDetails().phone }}</p>
-      <p><strong>Website:</strong> {{ tenantDetails().website }}</p>
-      <p><strong>Company:</strong> {{ tenantDetails().company.name }}</p>
-      <p><strong>Catchphrase:</strong> "{{ tenantDetails().company.catchPhrase }}"</p>
-    </div>
+      <div class="card">
+        <h2>{{ tenantDetails().name }}</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Email</span>
+            <span class="value">{{ tenantDetails().email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Phone</span>
+            <span class="value">{{ tenantDetails().phone }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Website</span>
+            <span class="value">{{ tenantDetails().website }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Company</span>
+            <span class="value">{{ tenantDetails().company.name }}</span>
+          </div>
+        </div>
+        <div class="catchphrase">
+          {{ tenantDetails().company.catchPhrase }}
+        </div>
+      </div>
      }
 </div>

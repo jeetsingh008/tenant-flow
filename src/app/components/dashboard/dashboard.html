@@ -11,7 +11,7 @@
 
   <main>
     @if (isLoading()) {
-      <p>Loading tenant data...</p>
+      <div class="loading-text">Loading tenant data...</div>
     } @else {
       <table class="tenant-table">
         <thead>
@@ -35,14 +35,16 @@
                 </span>
               </td>
               <td>
-              <button [routerLink]="['/tenant', tenant.id]">View</button>
-                @if (tenant.status === 'Active') {
-                  <button (click)="onSuspend(tenant.id)">Suspend</button>
-                }
+                <div class="actions">
+                  <button class="btn-view" [routerLink]="['/tenant', tenant.id]">View</button>
+                  @if (tenant.status === 'Active') {
+                    <button class="btn-suspend" (click)="onSuspend(tenant.id)">Suspend</button>
+                  }
+                </div>
               </td>
             </tr>
           } @empty {
-            <tr><td colspan="5">No tenants found matching your search.</td></tr>
+            <tr><td colspan="5"><div class="empty-state">No tenants found matching your search.</div></td></tr>
           }
         </tbody>
       </table>
