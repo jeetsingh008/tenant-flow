@@ -1,1 +1,45 @@
-<p>add-tenant works!</p>
+<div class="form-container">
+  <h2>Provision New Tenant</h2>
+
+  <!-- Use the standard Angular submit handler to trigger our component logic -->
+  <form [formRoot]="tenantForm">
+    
+    <div class="input-group">
+      <label>Contact Name</label>
+      <!-- [formField] binds directly to the specific field in the form tree -->
+      <input type="text" [formField]="tenantForm.name" placeholder="John Doe" />
+      
+      <!-- Read validation state directly from the field signal -->
+      @if (tenantForm.name().invalid() && tenantForm.name().touched()) {
+        @for (error of tenantForm.name().errors(); track error.kind) {
+          <span class="error">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <div class="input-group">
+      <label>Admin Email</label>
+      <input type="email" [formField]="tenantForm.email" placeholder="admin@client.com" />
+      
+      @if (tenantForm.email().invalid() && tenantForm.email().touched()) {
+        @for (error of tenantForm.email().errors(); track error.kind) {
+          <span class="error">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <div class="input-group">
+      <label>Organization Name</label>
+      <input type="text" [formField]="tenantForm.companyName" placeholder="Acme Corp" />
+      
+      @if (tenantForm.companyName().invalid() && tenantForm.companyName().touched()) {
+        @for (error of tenantForm.companyName().errors(); track error.kind) {
+          <span class="error">{{ error.message }}</span>
+        }
+      }
+    </div>
+
+    <!-- Disable button if the entire form tree is invalid -->
+    <button type="submit" [disabled]="tenantForm().invalid()">Create Tenant</button>
+  </form>
+</div>
