@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-
 @Component({
   selector: 'app-tenant-detail',
   imports: [RouterLink],
@@ -32,5 +31,4 @@ export class TenantDetail implements OnInit {
       })
     }
   }
-  
 }
