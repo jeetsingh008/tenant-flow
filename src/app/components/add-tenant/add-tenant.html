@@ -1,45 +1,57 @@
-<div class="form-container">
-  <h2>Provision New Tenant</h2>
+<div class="w-full max-w-[500px] mx-auto mt-10">
+  <div class="bg-[#1a1a1a] border border-[#333333] rounded-xl p-8 shadow-sm">
+    <h2 class="text-xl font-semibold m-0 mb-6 text-[#ededed]">Provision New Tenant</h2>
 
-  <!-- Use the standard Angular submit handler to trigger our component logic -->
-  <form [formRoot]="tenantForm">
-    
-    <div class="input-group">
-      <label>Contact Name</label>
-      <!-- [formField] binds directly to the specific field in the form tree -->
-      <input type="text" [formField]="tenantForm.name" placeholder="John Doe" />
+    <!-- Use the standard Angular submit handler to trigger our component logic -->
+    <form [formRoot]="tenantForm" class="flex flex-col gap-6">
       
-      <!-- Read validation state directly from the field signal -->
-      @if (tenantForm.name().invalid() && tenantForm.name().touched()) {
-        @for (error of tenantForm.name().errors(); track error.kind) {
-          <span class="error">{{ error.message }}</span>
+      <div class="flex flex-col gap-2">
+        <label class="text-[#a1a1aa] text-xs font-medium uppercase tracking-wider">Contact Name</label>
+        <!-- [formField] binds directly to the specific field in the form tree -->
+        <input type="text" [formField]="tenantForm.name" placeholder="John Doe" class="px-4 py-2.5 rounded-md border border-[#333333] bg-[#111111] text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-[#666666] placeholder:text-[#a1a1aa]" />
+        
+        <!-- Read validation state directly from the field signal -->
+        @if (tenantForm.name().invalid() && tenantForm.name().touched()) {
+          <div class="mt-1 flex flex-col gap-1">
+            @for (error of tenantForm.name().errors(); track error.kind) {
+              <span class="text-[#f87171] text-xs font-medium">{{ error.message }}</span>
+            }
+          </div>
         }
-      }
-    </div>
+      </div>
 
-    <div class="input-group">
-      <label>Admin Email</label>
-      <input type="email" [formField]="tenantForm.email" placeholder="admin@client.com" />
-      
-      @if (tenantForm.email().invalid() && tenantForm.email().touched()) {
-        @for (error of tenantForm.email().errors(); track error.kind) {
-          <span class="error">{{ error.message }}</span>
+      <div class="flex flex-col gap-2">
+        <label class="text-[#a1a1aa] text-xs font-medium uppercase tracking-wider">Admin Email</label>
+        <input type="email" [formField]="tenantForm.email" placeholder="admin@client.com" class="px-4 py-2.5 rounded-md border border-[#333333] bg-[#111111] text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-[#666666] placeholder:text-[#a1a1aa]" />
+        
+        @if (tenantForm.email().invalid() && tenantForm.email().touched()) {
+          <div class="mt-1 flex flex-col gap-1">
+            @for (error of tenantForm.email().errors(); track error.kind) {
+              <span class="text-[#f87171] text-xs font-medium">{{ error.message }}</span>
+            }
+          </div>
         }
-      }
-    </div>
+      </div>
 
-    <div class="input-group">
-      <label>Organization Name</label>
-      <input type="text" [formField]="tenantForm.companyName" placeholder="Acme Corp" />
-      
-      @if (tenantForm.companyName().invalid() && tenantForm.companyName().touched()) {
-        @for (error of tenantForm.companyName().errors(); track error.kind) {
-          <span class="error">{{ error.message }}</span>
+      <div class="flex flex-col gap-2">
+        <label class="text-[#a1a1aa] text-xs font-medium uppercase tracking-wider">Organization Name</label>
+        <input type="text" [formField]="tenantForm.companyName" placeholder="Acme Corp" class="px-4 py-2.5 rounded-md border border-[#333333] bg-[#111111] text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-[#666666] placeholder:text-[#a1a1aa]" />
+        
+        @if (tenantForm.companyName().invalid() && tenantForm.companyName().touched()) {
+          <div class="mt-1 flex flex-col gap-1">
+            @for (error of tenantForm.companyName().errors(); track error.kind) {
+              <span class="text-[#f87171] text-xs font-medium">{{ error.message }}</span>
+            }
+          </div>
         }
-      }
-    </div>
+      </div>
 
-    <!-- Disable button if the entire form tree is invalid -->
-    <button type="submit" [disabled]="tenantForm().invalid()">Create Tenant</button>
-  </form>
+      <!-- Disable button if the entire form tree is invalid -->
+      <div class="mt-4 pt-6 border-t border-[#333333]">
+        <button type="submit" [disabled]="tenantForm().invalid()" class="w-full cursor-pointer bg-[#ededed] text-[#111111] rounded-md px-4 py-2.5 font-semibold text-sm transition-colors duration-200 hover:bg-[#d4d4d8] disabled:opacity-50 disabled:cursor-not-allowed">
+          Create Tenant
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
