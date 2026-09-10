@@ -2,11 +2,12 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TenantService } from '../../../services/tenant';
 import { RouterLink } from "@angular/router";
+import { ThemeToggle } from '../theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, ThemeToggle],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

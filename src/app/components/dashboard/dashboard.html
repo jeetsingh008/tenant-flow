@@ -1,52 +1,54 @@
 <div class="w-full max-w-[1000px]">
-  <header class="flex justify-between items-center mb-8 pb-6 border-b border-[#333333]">
-    
-    <h2 class="text-2xl font-semibold m-0 text-[#ededed]">White-Label Tenant Management</h2>
-    <input 
-      type="text" 
-      [ngModel]="searchQuery()" 
-      (ngModelChange)="searchQuery.set($event)" 
-      placeholder="Search clients..." 
-      class="px-4 py-2 rounded-md border border-[#333333] bg-[#1a1a1a] text-[#ededed] text-sm w-[280px] outline-none transition-colors duration-200 focus:border-[#666666] placeholder:text-[#a1a1aa]"
-    />
+  <header class="flex justify-between items-center mb-8 pb-6 border-b border-gray-200 dark:border-[#333333] transition-colors duration-200">
+    <h2 class="text-2xl font-semibold m-0 text-gray-900 dark:text-[#ededed] transition-colors duration-200">White-Label Tenant Management</h2>
+    <div class="flex items-center gap-4">
+      <input 
+        type="text" 
+        [ngModel]="searchQuery()" 
+        (ngModelChange)="searchQuery.set($event)" 
+        placeholder="Search clients..." 
+        class="px-4 py-2 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-[#ededed] text-sm w-[280px] outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] placeholder:text-gray-400 dark:placeholder:text-[#a1a1aa]"
+      />
+      <app-theme-toggle></app-theme-toggle>
+    </div>
   </header>
 
   <main>
     @if (isLoading()) {
-      <div class="p-12 text-[#a1a1aa] text-[0.95rem]">Loading tenant data...</div>
+      <div class="p-12 text-gray-500 dark:text-[#a1a1aa] text-[0.95rem] transition-colors duration-200">Loading tenant data...</div>
     } @else {
       <table class="w-full border-collapse mt-4">
         <thead>
-          <tr>
-            <th class="text-left py-3 px-4 text-[#a1a1aa] font-medium text-[0.85rem] border-b border-[#333333]">Client Name</th>
-            <th class="text-left py-3 px-4 text-[#a1a1aa] font-medium text-[0.85rem] border-b border-[#333333]">Email</th>
-            <th class="text-left py-3 px-4 text-[#a1a1aa] font-medium text-[0.85rem] border-b border-[#333333]">Organization</th>
-            <th class="text-left py-3 px-4 text-[#a1a1aa] font-medium text-[0.85rem] border-b border-[#333333]">Status</th>
-            <th class="text-left py-3 px-4 text-[#a1a1aa] font-medium text-[0.85rem] border-b border-[#333333]">Actions</th>
+          <tr class="transition-colors duration-200">
+            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Client Name</th>
+            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Email</th>
+            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Organization</th>
+            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Status</th>
+            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Actions</th>
           </tr>
         </thead>
         <tbody>
           @for (tenant of filteredTenants(); track tenant.id) {
-            <tr class="transition-colors duration-150 hover:bg-[#262626]">
-              <td class="py-4 px-4 border-b border-[#333333] text-[0.95rem] font-medium text-[#ededed]">{{ tenant.name }}</td>
-              <td class="py-4 px-4 border-b border-[#333333] text-[0.95rem] text-[#ededed]">{{ tenant.email }}</td>
-              <td class="py-4 px-4 border-b border-[#333333] text-[0.95rem] text-[#ededed]">{{ tenant.company.name }}</td>
-              <td class="py-4 px-4 border-b border-[#333333] text-[0.95rem]">
-                <span [class]="tenant.status === 'Active' ? 'bg-[rgba(74,222,128,0.1)] text-[#4ade80] py-1 px-2 rounded text-xs font-medium' : 'bg-[rgba(248,113,113,0.1)] text-[#f87171] py-1 px-2 rounded text-xs font-medium'">
+            <tr class="transition-colors duration-150 hover:bg-gray-100 dark:hover:bg-[#262626]">
+              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] font-medium text-gray-900 dark:text-[#ededed] transition-colors duration-200">{{ tenant.name }}</td>
+              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] text-gray-700 dark:text-[#ededed] transition-colors duration-200">{{ tenant.email }}</td>
+              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] text-gray-700 dark:text-[#ededed] transition-colors duration-200">{{ tenant.company.name }}</td>
+              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] transition-colors duration-200">
+                <span [class]="tenant.status === 'Active' ? 'bg-green-100 dark:bg-[rgba(74,222,128,0.1)] text-green-700 dark:text-[#4ade80] py-1 px-2 rounded text-xs font-medium transition-colors duration-200' : 'bg-red-100 dark:bg-[rgba(248,113,113,0.1)] text-red-700 dark:text-[#f87171] py-1 px-2 rounded text-xs font-medium transition-colors duration-200'">
                   {{ tenant.status }}
                 </span>
               </td>
-              <td class="py-4 px-4 border-b border-[#333333] text-[0.95rem]">
+              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] transition-colors duration-200">
                 <div class="flex gap-2">
-                  <button class="cursor-pointer border border-[#333333] rounded-md px-3 py-1.5 font-medium text-[0.85rem] transition-colors duration-150 bg-[#1a1a1a] text-[#ededed] hover:bg-[#262626] hover:border-[#555]" [routerLink]="['/tenant', tenant.id]">View</button>
+                  <button class="cursor-pointer border border-gray-300 dark:border-[#333333] rounded-md px-3 py-1.5 font-medium text-[0.85rem] transition-colors duration-150 bg-white dark:bg-[#1a1a1a] text-gray-700 dark:text-[#ededed] hover:bg-gray-100 dark:hover:bg-[#262626] hover:border-gray-400 dark:hover:border-[#555]" [routerLink]="['/tenant', tenant.id]">View</button>
                   @if (tenant.status === 'Active') {
-                    <button class="cursor-pointer border border-[rgba(248,113,113,0.1)] rounded-md px-3 py-1.5 font-medium text-[0.85rem] transition-colors duration-150 bg-transparent text-[#f87171] hover:bg-[rgba(248,113,113,0.1)]" (click)="onSuspend(tenant.id)">Suspend</button>
+                    <button class="cursor-pointer border border-red-200 dark:border-[rgba(248,113,113,0.1)] rounded-md px-3 py-1.5 font-medium text-[0.85rem] transition-colors duration-150 bg-transparent text-red-600 dark:text-[#f87171] hover:bg-red-50 dark:hover:bg-[rgba(248,113,113,0.1)]" (click)="onSuspend(tenant.id)">Suspend</button>
                   }
                 </div>
               </td>
             </tr>
           } @empty {
-            <tr><td colspan="5"><div class="text-[#a1a1aa] text-[0.95rem] py-8 px-4 text-center">No tenants found matching your search.</div></td></tr>
+            <tr><td colspan="5"><div class="text-gray-500 dark:text-[#a1a1aa] text-[0.95rem] py-8 px-4 text-center transition-colors duration-200">No tenants found matching your search.</div></td></tr>
           }
         </tbody>
       </table>
