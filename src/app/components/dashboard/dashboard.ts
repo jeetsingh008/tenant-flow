@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TenantService } from '../../../services/tenant';
+import { Toast as ToastService } from '../../../services/toast/toast';
 import { RouterLink } from "@angular/router";
 import { ThemeToggle } from '../theme-toggle/theme-toggle';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -15,6 +16,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class Dashboard {
   tenantService = inject(TenantService);
+  toastService = inject(ToastService);
   
   // Bind directly to the service's signals
   tenants = this.tenantService.tenants;
@@ -45,5 +47,6 @@ export class Dashboard {
 
   onSuspend(id: number) {
     this.tenantService.suspendTenant(id);
+    this.toastService.show('Tenant has been suspended successfully', 'error');
   }
 }
