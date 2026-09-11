@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { TenantService } from '../../../services/tenant';
 import { RouterLink } from "@angular/router";
 import { ThemeToggle } from '../theme-toggle/theme-toggle';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,8 +22,16 @@ export class Dashboard {
 
   searchQuery = signal<string>('');
 
+  debouncedSearch = toSignal(
+    toObservable(this.searchQuery).pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ),
+    {initialValue: ''}
+  )
+
   filteredTenants = computed(() => {
-    const query = this.searchQuery().toLocaleLowerCase();
+    const query = this.debouncedSearch().toLocaleLowerCase();
 
     return this.tenants().filter(t => 
       t.name.toLowerCase().includes(query) ||
