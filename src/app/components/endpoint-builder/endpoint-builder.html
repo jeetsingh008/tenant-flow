@@ -1,1 +1,90 @@
-<p>endpoint-builder works!</p>
+<div class="w-full max-w-[700px] mx-auto mt-10">
+  <div class="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-[#333333] rounded-xl p-8 shadow-sm transition-colors duration-200">
+
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold m-0 text-gray-900 dark:text-[#ededed] transition-colors duration-200">Define New Mock Endpoint</h2>
+      <p class="mt-2 text-sm text-gray-500 dark:text-[#a1a1aa] transition-colors duration-200">Configure a custom REST route, status codes, and JSON response bodies.</p>
+    </div>
+
+    <form (submit)="onSubmit($event)" class="flex flex-col gap-6">
+
+      <!-- Route Path — full width -->
+      <div class="flex flex-col gap-2">
+        <label class="text-gray-500 dark:text-[#a1a1aa] text-xs font-medium uppercase tracking-wider transition-colors duration-200">Route Path</label>
+        <input type="text" [formField]="endpointForm.path" placeholder="/api/v1/users" class="px-4 py-2.5 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#111111] text-gray-900 dark:text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] placeholder:text-gray-400 dark:placeholder:text-[#a1a1aa] font-mono" />
+
+        @if (endpointForm.path().invalid() && endpointForm.path().touched()) {
+          <div class="mt-1 flex flex-col gap-1">
+            @for (error of endpointForm.path().errors(); track error.kind) {
+              <span class="text-red-600 dark:text-[#f87171] text-xs font-medium transition-colors duration-200">{{ error.message }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Method + Status Code — two column row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="flex flex-col gap-2">
+          <label class="text-gray-500 dark:text-[#a1a1aa] text-xs font-medium uppercase tracking-wider transition-colors duration-200">HTTP Method</label>
+          <select [formField]="endpointForm.method" class="px-4 py-2.5 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#111111] text-gray-900 dark:text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] cursor-pointer appearance-none">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="DELETE">DELETE</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-gray-500 dark:text-[#a1a1aa] text-xs font-medium uppercase tracking-wider transition-colors duration-200">Response Status</label>
+          <input type="number" [formField]="endpointForm.statusCode" placeholder="200, 201, 404, 500" class="px-4 py-2.5 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#111111] text-gray-900 dark:text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] placeholder:text-gray-400 dark:placeholder:text-[#a1a1aa]" />
+
+          @if (endpointForm.statusCode().invalid() && endpointForm.statusCode().touched()) {
+            <div class="mt-1 flex flex-col gap-1">
+              @for (error of endpointForm.statusCode().errors(); track error.kind) {
+                <span class="text-red-600 dark:text-[#f87171] text-xs font-medium transition-colors duration-200">{{ error.message }}</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Delay — single row -->
+      <div class="flex flex-col gap-2">
+        <label class="text-gray-500 dark:text-[#a1a1aa] text-xs font-medium uppercase tracking-wider transition-colors duration-200">Network Delay (ms)</label>
+        <input type="number" [formField]="endpointForm.delay" placeholder="0 or 500" class="px-4 py-2.5 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#111111] text-gray-900 dark:text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] placeholder:text-gray-400 dark:placeholder:text-[#a1a1aa] max-w-[200px]" />
+
+        @if (endpointForm.delay().invalid() && endpointForm.delay().touched()) {
+          <div class="mt-1 flex flex-col gap-1">
+            @for (error of endpointForm.delay().errors(); track error.kind) {
+              <span class="text-red-600 dark:text-[#f87171] text-xs font-medium transition-colors duration-200">{{ error.message }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- JSON Response Body — full width textarea -->
+      <div class="flex flex-col gap-2">
+        <label class="text-gray-500 dark:text-[#a1a1aa] text-xs font-medium uppercase tracking-wider transition-colors duration-200">JSON Response Body</label>
+        <textarea [formField]="endpointForm.responseBody" rows="10" placeholder='{ "id": 1, "name": "..." }' class="px-4 py-3 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#111111] text-gray-900 dark:text-[#ededed] text-sm w-full outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] placeholder:text-gray-400 dark:placeholder:text-[#a1a1aa] font-mono resize-y leading-relaxed"></textarea>
+
+        @if (endpointForm.responseBody().invalid() && endpointForm.responseBody().touched()) {
+          <div class="mt-1 flex flex-col gap-1">
+            @for (error of endpointForm.responseBody().errors(); track error.kind) {
+              <span class="text-red-600 dark:text-[#f87171] text-xs font-medium transition-colors duration-200">{{ error.message }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-4 pt-6 border-t border-gray-200 dark:border-[#333333] transition-colors duration-200 flex items-center gap-3">
+        <button type="submit" [disabled]="endpointForm().invalid()" class="cursor-pointer bg-gray-900 dark:bg-[#ededed] text-white dark:text-[#111111] rounded-md px-5 py-2.5 font-semibold text-sm transition-colors duration-200 hover:bg-gray-800 dark:hover:bg-[#d4d4d8] disabled:opacity-50 disabled:cursor-not-allowed">
+          Create Endpoint
+        </button>
+        <button type="button" routerLink="/" class="cursor-pointer bg-transparent border border-gray-300 dark:border-[#333333] text-gray-700 dark:text-[#a1a1aa] rounded-md px-5 py-2.5 font-medium text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-[#262626] hover:text-gray-900 dark:hover:text-[#ededed]">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

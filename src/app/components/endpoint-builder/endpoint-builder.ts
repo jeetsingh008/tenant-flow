@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { form, required, minLength, submit, pattern, min } from '@angular/forms/signals'
+import { form, required, minLength, submit, pattern, min, FormField, FormRoot } from '@angular/forms/signals'
 import { EndpointService } from '../../../services/endpoint/endpoint-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Toast } from '../../../services/toast/toast';
 import { Endpoint } from '../../models/endpoint.model';
 
 @Component({
   selector: 'app-endpoint-builder',
-  imports: [],
+  imports: [RouterLink, FormField],
   templateUrl: './endpoint-builder.html',
   styleUrl: './endpoint-builder.css',
 })
