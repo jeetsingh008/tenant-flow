@@ -92,6 +92,30 @@
         }
       </span>
     </div>
+
+    <!-- Actual Response Area (Shown during/after simulation) -->
+    @if (isSimulating()) {
+      <div class="mt-6 pt-6 border-t border-gray-200 dark:border-[#30363d] transition-colors duration-200">
+        <h4 class="text-sm font-medium text-gray-500 dark:text-[#8b949e] m-0 mb-3">Actual Response</h4>
+        <div class="flex flex-col gap-3">
+          <div class="h-4 w-3/4 bg-gray-200 dark:bg-[#30363d] rounded animate-pulse"></div>
+          <div class="h-4 w-1/2 bg-gray-200 dark:bg-[#30363d] rounded animate-pulse"></div>
+          <div class="h-4 w-5/6 bg-gray-200 dark:bg-[#30363d] rounded animate-pulse"></div>
+        </div>
+      </div>
+    } @else if (simulatedResponse()) {
+      <div class="mt-6 pt-6 border-t border-gray-200 dark:border-[#30363d] transition-colors duration-200">
+        <div class="flex items-center gap-3 mb-3">
+          <h4 class="text-sm font-medium text-gray-500 dark:text-[#8b949e] m-0">Actual Response</h4>
+          <span class="inline-flex items-center gap-1.5 bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 py-0.5 px-2 rounded text-[0.75rem] font-bold">
+            {{ endpoint().statusCode }} OK
+          </span>
+        </div>
+        <div class="relative rounded-md border border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#0d1117] overflow-hidden transition-colors duration-200">
+          <pre class="py-3 px-4 m-0 text-[0.85rem] text-gray-800 dark:text-[#c9d1d9] font-mono overflow-x-auto w-full leading-relaxed">{{ simulatedResponse() }}</pre>
+        </div>
+      </div>
+    }
   </div>
 
 </div>
