@@ -1,12 +1,10 @@
 import { Routes } from '@angular/router';
 
 import { Dashboard } from './components/dashboard/dashboard';
-import { TenantDetail } from './components/tenant-detail/tenant-detail';
-import { AddTenant } from './components/add-tenant/add-tenant';
+import { EndpointBuilder } from './components/endpoint-builder/endpoint-builder';
 
 export const routes: Routes = [
-  { path: '', component: Dashboard },
-  { path: 'tenant/:id', component: TenantDetail },
-    { path: 'dashboard', component: Dashboard },
-  { path: 'add-tenant', component: AddTenant}
+  { path: '', component: Dashboard }, // Dashboard as home page
+  { path: 'add', component: EndpointBuilder },
+  { path: '**', redirectTo: '' } // Catch-all redirect to dashboard
 ];
