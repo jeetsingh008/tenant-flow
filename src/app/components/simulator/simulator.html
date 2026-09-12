@@ -1,0 +1,97 @@
+<div class="flex flex-col gap-6">
+
+  <!-- Top Info Section -->
+  <div class="bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl overflow-hidden transition-colors duration-200 shadow-sm dark:shadow-none">
+    
+    <div class="p-6 border-b border-gray-200 dark:border-[#30363d]">
+      <div class="flex items-center gap-3 mb-6">
+        <span [class]="'text-lg font-bold transition-colors duration-200 ' + (endpoint().method === 'GET' ? 'text-green-600 dark:text-green-500' : (endpoint().method === 'POST' ? 'text-blue-600 dark:text-blue-500' : (endpoint().method === 'PUT' ? 'text-amber-600 dark:text-amber-500' : 'text-red-600 dark:text-red-500')))">
+          [{{ endpoint().method }}]
+        </span>
+        <span class="text-[1.35rem] font-semibold text-gray-900 dark:text-[#ededed] transition-colors duration-200">{{ endpoint().path }}</span>
+      </div>
+
+      <div class="flex flex-wrap md:flex-nowrap gap-8">
+        <div class="flex flex-col gap-1.5 flex-1 min-w-[250px]">
+          <span class="text-[0.8rem] text-gray-500 dark:text-[#8b949e] font-medium">URL</span>
+          <div class="flex items-center gap-2 text-[0.95rem] text-gray-800 dark:text-[#c9d1d9] bg-transparent">
+            http://localhost:3000{{ endpoint().path }}
+            <button class="cursor-pointer text-gray-400 hover:text-gray-600 dark:text-[#8b949e] dark:hover:text-[#c9d1d9] bg-transparent border-none p-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="w-[1px] bg-gray-200 dark:bg-[#30363d] hidden md:block"></div>
+
+        <div class="flex flex-col gap-1.5 w-[120px]">
+          <span class="text-[0.8rem] text-gray-500 dark:text-[#8b949e] font-medium">Method</span>
+          <span class="text-[0.95rem] text-gray-800 dark:text-[#c9d1d9]">{{ endpoint().method }}</span>
+        </div>
+
+        <div class="flex flex-col gap-1.5 w-[120px]">
+          <span class="text-[0.8rem] text-gray-500 dark:text-[#8b949e] font-medium">Response Delay</span>
+          <span class="text-[0.95rem] text-gray-800 dark:text-[#c9d1d9]">{{ endpoint().delay }}ms</span>
+        </div>
+
+        <div class="flex flex-col gap-1.5 w-[120px]">
+          <span class="text-[0.8rem] text-gray-500 dark:text-[#8b949e] font-medium">Status Code</span>
+          <span class="text-[0.95rem] text-gray-800 dark:text-[#c9d1d9]">{{ endpoint().statusCode }} OK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Block section -->
+    <div class="p-6 bg-white dark:bg-[#161b22]">
+      <h4 class="text-sm font-medium text-gray-500 dark:text-[#8b949e] m-0 mb-3">Mock Response Body (JSON)</h4>
+      
+      <div class="relative rounded-md border border-gray-200 dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#0d1117] overflow-hidden">
+        <!-- Lines and code are mocked here to look like a real editor -->
+        <div class="flex text-[0.85rem] font-mono leading-relaxed">
+          <div class="py-3 px-3 text-right text-gray-400 dark:text-[#484f58] select-none border-r border-gray-200 dark:border-[#30363d] bg-gray-100 dark:bg-[#161b22]">
+            @for (line of endpoint().responseBody.split('\n'); track $index) {
+              <div>{{ $index + 1 }}</div>
+            }
+          </div>
+          <pre class="py-3 px-4 m-0 text-gray-800 dark:text-[#c9d1d9] overflow-x-auto w-full">{{ endpoint().responseBody }}</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Test Console Section -->
+  <div class="bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl overflow-hidden transition-colors duration-200 shadow-sm dark:shadow-none p-6">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-[#ededed] m-0 mb-4">Test Console</h3>
+    
+    <div class="flex items-center gap-3">
+      <button
+        (click)="triggerSimulation()"
+        [disabled]="isSimulating()"
+        class="cursor-pointer inline-flex items-center justify-center bg-blue-600 text-white rounded-md px-5 py-2 font-medium text-[0.95rem] hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+      >
+        @if (isSimulating()) {
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Sending...
+        } @else {
+          Send Test Request
+        }
+      </button>
+
+      <span class="px-3 py-2 bg-gray-200 dark:bg-[#30363d] text-gray-600 dark:text-[#8b949e] text-sm rounded-md font-mono">
+        @if (simulatedResponse() && !isSimulating()) {
+          {{ endpoint().delay }}ms
+        } @else {
+          0ms
+        }
+      </span>
+    </div>
+  </div>
+
+</div>

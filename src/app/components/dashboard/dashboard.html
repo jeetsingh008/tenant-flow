@@ -1,57 +1,88 @@
-<div class="w-full max-w-[1000px]">
-  <header class="flex justify-between items-center mb-8 pb-6 border-b border-gray-200 dark:border-[#333333] transition-colors duration-200">
-    <h2 class="text-2xl font-semibold m-0 text-gray-900 dark:text-[#ededed] transition-colors duration-200">White-Label Tenant Management</h2>
-    <div class="flex items-center gap-4">
-      <input 
-        type="text" 
-        [ngModel]="searchQuery()" 
-        (ngModelChange)="searchQuery.set($event)" 
-        placeholder="Search clients..." 
-        class="px-4 py-2 rounded-md border border-gray-300 dark:border-[#333333] bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-[#ededed] text-sm w-[280px] outline-none transition-colors duration-200 focus:border-gray-500 dark:focus:border-[#666666] placeholder:text-gray-400 dark:placeholder:text-[#a1a1aa]"
+<div class="flex h-[calc(100vh-61px)] w-full">
+  
+  <!-- Left Sidebar (Master) -->
+  <aside class="w-[320px] shrink-0 border-r border-gray-200 dark:border-[#1e2533] bg-gray-50 dark:bg-[#161b22] flex flex-col h-full transition-colors duration-200 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)] dark:shadow-none">
+    <div class="p-5 pb-4 flex flex-col gap-4">
+      <h3 class="text-[0.95rem] font-semibold text-gray-900 dark:text-[#ededed] m-0">Configured Endpoints</h3>
+      <input
+        type="text"
+        [ngModel]="rawSearchQuery()"
+        (ngModelChange)="rawSearchQuery.set($event)"
+        placeholder="Search routes..."
+        class="px-3 py-2 rounded border border-gray-300 dark:border-[#30363d] bg-white dark:bg-[#0d1117] text-gray-900 dark:text-[#ededed] text-[0.85rem] w-full outline-none transition-colors duration-200 focus:border-blue-400 dark:focus:border-blue-500 placeholder:text-gray-400 dark:placeholder:text-[#484f58]"
       />
-      <app-theme-toggle></app-theme-toggle>
     </div>
-  </header>
 
-  <main>
-    @if (isLoading()) {
-      <div class="p-12 text-gray-500 dark:text-[#a1a1aa] text-[0.95rem] transition-colors duration-200">Loading tenant data...</div>
-    } @else {
-      <table class="w-full border-collapse mt-4">
-        <thead>
-          <tr class="transition-colors duration-200">
-            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Client Name</th>
-            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Email</th>
-            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Organization</th>
-            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Status</th>
-            <th class="text-left py-3 px-4 text-gray-500 dark:text-[#a1a1aa] font-medium text-[0.85rem] border-b border-gray-200 dark:border-[#333333]">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (tenant of filteredTenants(); track tenant.id) {
-            <tr class="transition-colors duration-150 hover:bg-gray-100 dark:hover:bg-[#262626]">
-              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] font-medium text-gray-900 dark:text-[#ededed] transition-colors duration-200">{{ tenant.name }}</td>
-              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] text-gray-700 dark:text-[#ededed] transition-colors duration-200">{{ tenant.email }}</td>
-              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] text-gray-700 dark:text-[#ededed] transition-colors duration-200">{{ tenant.company.name }}</td>
-              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] transition-colors duration-200">
-                <span [class]="tenant.status === 'Active' ? 'bg-green-100 dark:bg-[rgba(74,222,128,0.1)] text-green-700 dark:text-[#4ade80] py-1 px-2 rounded text-xs font-medium transition-colors duration-200' : 'bg-red-100 dark:bg-[rgba(248,113,113,0.1)] text-red-700 dark:text-[#f87171] py-1 px-2 rounded text-xs font-medium transition-colors duration-200'">
-                  {{ tenant.status }}
-                </span>
-              </td>
-              <td class="py-4 px-4 border-b border-gray-200 dark:border-[#333333] text-[0.95rem] transition-colors duration-200">
-                <div class="flex gap-2">
-                  <button class="cursor-pointer border border-gray-300 dark:border-[#333333] rounded-md px-3 py-1.5 font-medium text-[0.85rem] transition-colors duration-150 bg-white dark:bg-[#1a1a1a] text-gray-700 dark:text-[#ededed] hover:bg-gray-100 dark:hover:bg-[#262626] hover:border-gray-400 dark:hover:border-[#555]" [routerLink]="['/tenant', tenant.id]">View</button>
-                  @if (tenant.status === 'Active') {
-                    <button class="cursor-pointer border border-red-200 dark:border-[rgba(248,113,113,0.1)] rounded-md px-3 py-1.5 font-medium text-[0.85rem] transition-colors duration-150 bg-transparent text-red-600 dark:text-[#f87171] hover:bg-red-50 dark:hover:bg-[rgba(248,113,113,0.1)]" (click)="onSuspend(tenant.id)">Suspend</button>
-                  }
-                </div>
-              </td>
-            </tr>
-          } @empty {
-            <tr><td colspan="5"><div class="text-gray-500 dark:text-[#a1a1aa] text-[0.95rem] py-8 px-4 text-center transition-colors duration-200">No tenants found matching your search.</div></td></tr>
+    <div class="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-3 relative">
+      @for (endpoint of filteredEndpoints(); track endpoint.id) {
+        <div 
+          (click)="selectEndpoint(endpoint.id)"
+          class="group flex flex-col gap-2 p-3.5 rounded-lg border cursor-pointer transition-all duration-150 relative"
+          [class]="selectedEndpointId() === endpoint.id ? 'border-blue-400 dark:border-blue-500/50 bg-blue-50/50 dark:bg-[#1e2533]' : 'border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#0d1117] hover:border-gray-300 dark:hover:border-[#484f58]'"
+        >
+          <!-- Active Indicator line on the left -->
+          @if (selectedEndpointId() === endpoint.id) {
+            <div class="absolute -right-[17px] top-1/2 -translate-y-1/2 w-1.5 h-12 bg-white dark:bg-[#ededed] rounded-l-md shadow-sm"></div>
           }
-        </tbody>
-      </table>
+
+          <div class="flex items-center gap-2">
+            <span [class]="getMethodColor(endpoint.method) + ' py-0.5 px-1.5 rounded text-[0.65rem] font-bold uppercase tracking-wide text-center transition-colors duration-200'">
+              [{{ endpoint.method }}]
+            </span>
+            <span class="text-[0.95rem] font-semibold text-gray-900 dark:text-[#ededed] font-mono truncate" [title]="endpoint.path">
+              {{ endpoint.path }}
+            </span>
+          </div>
+          
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="text-[0.8rem] text-gray-500 dark:text-[#8b949e]">Status:</span>
+            <span [class]="endpoint.statusCode >= 200 && endpoint.statusCode < 300 ? 'text-[0.8rem] text-green-600 dark:text-green-500' : (endpoint.statusCode >= 400 ? 'text-[0.8rem] text-red-600 dark:text-red-500' : 'text-[0.8rem] text-amber-600 dark:text-amber-500')">
+              {{ endpoint.statusCode }} {{ endpoint.statusCode === 200 ? 'OK' : (endpoint.statusCode === 201 ? 'Created' : (endpoint.statusCode === 204 ? 'No Content' : '')) }}
+            </span>
+          </div>
+
+          <button
+            (click)="onDelete(endpoint.id, $event)"
+            class="absolute top-2 right-2 cursor-pointer p-1 rounded hover:bg-gray-200 dark:hover:bg-[#30363d] text-gray-400 dark:text-[#8b949e] opacity-0 group-hover:opacity-100 transition-opacity"
+            aria-label="Delete"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      } @empty {
+        <div class="text-gray-500 dark:text-[#8b949e] text-sm text-center py-8">
+          No endpoints found.
+        </div>
+      }
+    </div>
+
+    <div class="p-4 pt-0">
+      <a routerLink="/add" class="flex items-center justify-center w-full py-2.5 rounded-md border border-blue-200 dark:border-blue-900/50 bg-transparent text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-[#1e2533] font-medium text-[0.9rem] transition-colors duration-150 no-underline gap-2 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        New Endpoint
+      </a>
+    </div>
+  </aside>
+
+  <!-- Right Main Area (Detail) -->
+  <main class="flex-1 bg-white dark:bg-[#0d1117] h-full overflow-y-auto p-8 flex flex-col transition-colors duration-200">
+    @if (selectedEndpoint(); as endpoint) {
+      <div class="max-w-[1000px] w-full">
+        <h1 class="text-[1.35rem] font-semibold text-gray-900 dark:text-[#ededed] m-0 mb-6">Endpoint Simulator & Test Console</h1>
+        
+        <app-simulator [endpoint]="endpoint"></app-simulator>
+      </div>
+    } @else {
+      <div class="flex-1 flex flex-col items-center justify-center text-gray-400 dark:text-[#8b949e]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4 opacity-50">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        <p>Select an endpoint from the sidebar to view details</p>
+      </div>
     }
   </main>
 </div>
