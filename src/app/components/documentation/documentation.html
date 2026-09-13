@@ -1,0 +1,113 @@
+<div class="flex h-[calc(100vh-61px)] w-full max-w-[1200px] mx-auto transition-colors duration-200">
+  
+  <!-- Left Sidebar -->
+  <aside class="hidden md:flex flex-col w-[250px] shrink-0 border-r border-gray-200 dark:border-[#30363d] pr-6 py-8 h-full overflow-y-auto transition-colors duration-200">
+    <h3 class="text-sm font-semibold text-gray-900 dark:text-[#ededed] uppercase tracking-wider mb-4 m-0">Documentation</h3>
+    <div class="flex flex-col gap-4">
+      <a href="#" (click)="scrollTo('getting-started', $event)" class="text-[0.9rem] font-medium text-gray-500 hover:text-blue-600 dark:text-[#8b949e] dark:hover:text-blue-400 no-underline transition-colors duration-200">Getting Started</a>
+      <a href="#" (click)="scrollTo('mock-servers', $event)" class="text-[0.9rem] font-medium text-gray-500 hover:text-blue-600 dark:text-[#8b949e] dark:hover:text-blue-400 no-underline transition-colors duration-200">Mock Servers</a>
+      <a href="#" (click)="scrollTo('endpoints', $event)" class="text-[0.9rem] font-medium text-gray-500 hover:text-blue-600 dark:text-[#8b949e] dark:hover:text-blue-400 no-underline transition-colors duration-200">Creating Endpoints</a>
+      <a href="#" (click)="scrollTo('simulator', $event)" class="text-[0.9rem] font-medium text-gray-500 hover:text-blue-600 dark:text-[#8b949e] dark:hover:text-blue-400 no-underline transition-colors duration-200">Test Simulator</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 min-w-0 h-full overflow-y-auto scroll-smooth px-8 md:px-12 py-8 pb-20">
+    <div class="mb-12 border-b border-gray-200 dark:border-[#30363d] pb-8 transition-colors duration-200">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white m-0 mb-4 transition-colors duration-200">API Forge Documentation</h1>
+      <p class="text-lg text-gray-600 dark:text-[#8b949e] m-0 leading-relaxed transition-colors duration-200">Welcome to API Forge! This guide will help you understand how to configure mock servers, create REST endpoints, and simulate network delays for your frontend development.</p>
+    </div>
+
+    <!-- Getting Started -->
+    <section id="getting-started" class="mb-16 scroll-mt-8">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mt-0 mb-4 transition-colors duration-200">Getting Started</h2>
+      <p class="text-[0.95rem] text-gray-700 dark:text-[#c9d1d9] leading-relaxed mb-6 transition-colors duration-200">API Forge is a local-first mocking tool designed to decouple frontend development from backend readiness. By configuring virtual servers and endpoints, you can simulate API responses without writing any backend code.</p>
+      
+      <div class="bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500 p-5 rounded-r-md transition-colors duration-200">
+        <h4 class="text-sm font-bold text-blue-800 dark:text-blue-400 m-0 mb-1.5 transition-colors duration-200">Core Concept</h4>
+        <p class="text-sm text-blue-700 dark:text-blue-300/80 m-0 leading-relaxed transition-colors duration-200">In API Forge, <strong>Endpoints</strong> belong to <strong>Servers</strong>. You must select an active server from the Dashboard to view or create endpoints for it.</p>
+      </div>
+    </section>
+
+    <!-- Mock Servers -->
+    <section id="mock-servers" class="mb-16 scroll-mt-8">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mt-0 mb-4 transition-colors duration-200">Mock Servers</h2>
+      <p class="text-[0.95rem] text-gray-700 dark:text-[#c9d1d9] leading-relaxed mb-6 transition-colors duration-200">A Mock Server acts as a virtual host container. Instead of having all your mock endpoints jumbled together, you can separate them by project or environment (e.g., Staging vs Production).</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
+        <div class="p-6 border border-gray-200 dark:border-[#30363d] rounded-xl bg-gray-50 dark:bg-[#161b22] transition-colors duration-200">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+          </div>
+          <h4 class="text-base font-semibold text-gray-900 dark:text-[#ededed] m-0 mb-2 transition-colors duration-200">Creating a Server</h4>
+          <p class="text-[0.9rem] text-gray-600 dark:text-[#8b949e] m-0 leading-relaxed transition-colors duration-200">Navigate to the <strong>Mock Servers</strong> tab. Click "New Server" and define a name, port (e.g., 3000), and a base prefix (e.g., `/api/v1`).</p>
+        </div>
+        <div class="p-6 border border-gray-200 dark:border-[#30363d] rounded-xl bg-gray-50 dark:bg-[#161b22] transition-colors duration-200">
+          <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 flex items-center justify-center mb-4 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+          </div>
+          <h4 class="text-base font-semibold text-gray-900 dark:text-[#ededed] m-0 mb-2 transition-colors duration-200">Switching Servers</h4>
+          <p class="text-[0.9rem] text-gray-600 dark:text-[#8b949e] m-0 leading-relaxed transition-colors duration-200">From the Dashboard sidebar, use the "Active Server" dropdown to switch your context. Only endpoints belonging to the active server will be displayed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Endpoints -->
+    <section id="endpoints" class="mb-16 scroll-mt-8">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mt-0 mb-4 transition-colors duration-200">Creating Endpoints</h2>
+      <p class="text-[0.95rem] text-gray-700 dark:text-[#c9d1d9] leading-relaxed mb-6 transition-colors duration-200">Once a server is active, you can define REST endpoints. Click the "+ New Endpoint" button from the Dashboard to open the Endpoint Builder.</p>
+      
+      <div class="flex flex-col gap-6 mt-6">
+        <div class="flex items-start gap-4">
+          <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#30363d] text-gray-800 dark:text-[#ededed] flex items-center justify-center text-sm font-bold shrink-0 mt-0.5 transition-colors duration-200">1</div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-[#ededed] text-base m-0 mb-1 transition-colors duration-200">Define the Route</h4>
+            <p class="text-[0.95rem] text-gray-600 dark:text-[#8b949e] m-0 leading-relaxed transition-colors duration-200">Specify the HTTP method (GET, POST, PUT, DELETE) and the specific path (e.g., <code class="bg-gray-100 dark:bg-[#1e2533] text-pink-600 dark:text-pink-400 px-1.5 py-0.5 rounded text-[0.85em]">/users</code>).</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#30363d] text-gray-800 dark:text-[#ededed] flex items-center justify-center text-sm font-bold shrink-0 mt-0.5 transition-colors duration-200">2</div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-[#ededed] text-base m-0 mb-1 transition-colors duration-200">Set Status & Delay</h4>
+            <p class="text-[0.95rem] text-gray-600 dark:text-[#8b949e] m-0 leading-relaxed transition-colors duration-200">Simulate real-world conditions by setting a custom HTTP status code (like 404 for testing errors) and a network delay in milliseconds.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-[#30363d] text-gray-800 dark:text-[#ededed] flex items-center justify-center text-sm font-bold shrink-0 mt-0.5 transition-colors duration-200">3</div>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-[#ededed] text-base m-0 mb-1 transition-colors duration-200">Provide JSON Payload</h4>
+            <p class="text-[0.95rem] text-gray-600 dark:text-[#8b949e] m-0 leading-relaxed transition-colors duration-200">Paste the exact JSON response body you want this endpoint to return to your application.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simulator -->
+    <section id="simulator" class="scroll-mt-8">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mt-0 mb-4 transition-colors duration-200">Test Simulator</h2>
+      <p class="text-[0.95rem] text-gray-700 dark:text-[#c9d1d9] leading-relaxed mb-6 transition-colors duration-200">The Dashboard acts as a Master-Detail interface. Selecting an endpoint from the sidebar opens it in the Simulator.</p>
+
+      <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#0d1117] shadow-sm transition-colors duration-200">
+        <div class="px-5 py-3.5 bg-gray-100 dark:bg-[#161b22] border-b border-gray-200 dark:border-[#30363d] flex items-center gap-2 transition-colors duration-200">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          <span class="text-xs font-mono font-medium text-gray-500 ml-2">Simulator Console</span>
+        </div>
+        <div class="p-8">
+          <p class="text-[0.95rem] text-gray-700 dark:text-[#c9d1d9] m-0 mb-6 leading-relaxed transition-colors duration-200">By clicking <strong>Send Test Request</strong>, API Forge visually demonstrates exactly how your frontend will experience the API call. It will render a loading skeleton for the duration of the configured delay before finally presenting the JSON payload and status badge.</p>
+          <button class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-semibold border-none cursor-pointer hover:bg-blue-700 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Send Test Request
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
