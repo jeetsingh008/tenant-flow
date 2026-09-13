@@ -1,0 +1,80 @@
+<div class="max-w-[1000px] w-full mx-auto p-8">
+  <header class="flex justify-between items-center mb-8 pb-6 border-b border-gray-200 dark:border-[#30363d] transition-colors duration-200">
+    <div>
+      <h2 class="text-2xl font-semibold m-0 text-gray-900 dark:text-[#ededed] transition-colors duration-200">Mock Servers</h2>
+      <p class="mt-1 text-sm text-gray-500 dark:text-[#8b949e] transition-colors duration-200">Manage your virtual servers and their base configurations.</p>
+    </div>
+    
+    @if (!isAdding()) {
+      <button 
+        (click)="onAddServer()"
+        class="inline-flex items-center gap-1.5 cursor-pointer bg-blue-600 text-white rounded-md px-4 py-2 font-semibold text-sm transition-colors duration-200 hover:bg-blue-700"
+      >
+        <span class="text-base leading-none">+</span> New Server
+      </button>
+    }
+  </header>
+
+  <main>
+    @if (isAdding()) {
+      <div class="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-xl p-6 shadow-sm transition-colors duration-200 mb-8">
+        <h3 class="text-lg font-semibold m-0 mb-4 text-gray-900 dark:text-[#ededed]">Add New Server</h3>
+        
+        <form (submit)="onSubmit($event)" class="flex flex-col gap-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="flex flex-col gap-2">
+              <label class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-[#8b949e]">Server Name</label>
+              <input type="text" [formField]="serverForm.name" placeholder="e.g. Staging Environment" class="px-3 py-2 rounded-md border border-gray-300 dark:border-[#30363d] bg-gray-50 dark:bg-[#0d1117] text-sm text-gray-900 dark:text-[#ededed] outline-none focus:border-blue-500" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-[#8b949e]">Port</label>
+                <input type="number" [formField]="serverForm.port" placeholder="3000" class="px-3 py-2 rounded-md border border-gray-300 dark:border-[#30363d] bg-gray-50 dark:bg-[#0d1117] text-sm text-gray-900 dark:text-[#ededed] outline-none focus:border-blue-500" />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-[#8b949e]">Base Prefix</label>
+                <input type="text" [formField]="serverForm.globalPrefix" placeholder="/api/v1" class="px-3 py-2 rounded-md border border-gray-300 dark:border-[#30363d] bg-gray-50 dark:bg-[#0d1117] text-sm text-gray-900 dark:text-[#ededed] outline-none focus:border-blue-500" />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 pt-4 border-t border-gray-200 dark:border-[#30363d]">
+            <button type="submit" [disabled]="serverForm().invalid()" class="cursor-pointer bg-blue-600 text-white rounded-md px-5 py-2 font-medium text-sm hover:bg-blue-700 disabled:opacity-50">Save Server</button>
+            <button type="button" (click)="cancelAdd()" class="cursor-pointer bg-transparent border border-gray-300 dark:border-[#30363d] text-gray-700 dark:text-[#8b949e] rounded-md px-5 py-2 font-medium text-sm hover:bg-gray-100 dark:hover:bg-[#1e2533]">Cancel</button>
+          </div>
+        </form>
+      </div>
+    }
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      @for (server of servers(); track server.id) {
+        <div class="relative p-5 rounded-xl border border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22] hover:border-blue-300 dark:hover:border-blue-500/50 transition-colors duration-200 flex flex-col gap-3 group">
+          
+          @if (activeServerId() === server.id) {
+            <span class="absolute top-4 right-4 bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-500 py-1 px-2.5 rounded text-xs font-bold uppercase tracking-wider">Active</span>
+          } @else {
+            <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <button (click)="makeActive(server.id)" class="cursor-pointer text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline bg-transparent border-none">Make Active</button>
+              <span class="text-gray-300 dark:text-[#30363d]">|</span>
+              <button (click)="deleteServer(server.id)" class="cursor-pointer text-xs font-medium text-red-600 dark:text-red-400 hover:underline bg-transparent border-none">Delete</button>
+            </div>
+          }
+
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-[#ededed] m-0 pr-16">{{ server.name }}</h3>
+          
+          <div class="flex items-center gap-4 mt-2">
+            <div class="flex flex-col">
+              <span class="text-xs text-gray-500 dark:text-[#8b949e]">Port</span>
+              <span class="text-sm font-mono text-gray-800 dark:text-[#c9d1d9]">{{ server.port }}</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs text-gray-500 dark:text-[#8b949e]">Prefix</span>
+              <span class="text-sm font-mono text-gray-800 dark:text-[#c9d1d9]">{{ server.globalPrefix }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>

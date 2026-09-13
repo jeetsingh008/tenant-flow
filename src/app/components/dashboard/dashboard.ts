@@ -7,6 +7,7 @@ import { EndpointService } from '../../../services/endpoint/endpoint-service';
 import { Toast as ToastService } from '../../../services/toast/toast';
 import { Endpoint } from '../../models/endpoint.model';
 import { Simulator } from '../simulator/simulator';
+import { ServerService } from '../../../services/server/server-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ import { Simulator } from '../simulator/simulator';
 export class Dashboard {
   private endpointService = inject(EndpointService);
   private toastService = inject(ToastService);
+  serverService = inject(ServerService);
 
   // Expose the raw data signal from service
   endpoints = this.endpointService.endpoints;
@@ -38,10 +40,13 @@ export class Dashboard {
   // Computed Signal: Derived state that filters the list automatically.
   filteredEndpoints = computed(() => {
     const query = this.search().toLowerCase();
+    const activeServerId = this.serverService.activeServerId();
 
-    if (!query) return this.endpoints();
+    const serverEndpoints = this.endpoints().filter(ep => ep.serverId === activeServerId);
 
-    return this.endpoints().filter(ep =>
+    if (!query) return serverEndpoints;
+
+    return serverEndpoints.filter(ep =>
       ep.path.toLowerCase().includes(query) ||
       ep.method.toLowerCase().includes(query)
     );

@@ -20,6 +20,7 @@ export class EndpointService {
   return [
       {
         id: Date.now(),
+        serverId: 1,
         path: '/api/v1/users',
         method: 'GET',
         statusCode: 200,
@@ -31,6 +32,7 @@ export class EndpointService {
       },
       {
         id: Date.now() + 1,
+        serverId: 1,
         path: '/api/v1/status',
         method: 'GET',
         statusCode: 200,

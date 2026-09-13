@@ -4,6 +4,7 @@ import { EndpointService } from '../../../services/endpoint/endpoint-service';
 import { Router, RouterLink } from '@angular/router';
 import { Toast } from '../../../services/toast/toast';
 import { Endpoint } from '../../models/endpoint.model';
+import { ServerService } from '../../../services/server/server-service';
 
 @Component({
   selector: 'app-endpoint-builder',
@@ -16,8 +17,10 @@ export class EndpointBuilder {
   private endpointService = inject(EndpointService);
   private router = inject(Router);
   private toastService = inject(Toast);
+  private serverService = inject(ServerService);
 
   endpointModel = signal<Omit<Endpoint, 'id'>>({
+    serverId: this.serverService.activeServerId(),
     path: '',
     method: 'GET',
     statusCode: 200,
