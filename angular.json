@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "tenantflow": {
+    "apikiba": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tenantflow:build:production"
+              "buildTarget": "apikiba:build:production"
             },
             "development": {
-              "buildTarget": "tenantflow:build:development"
+              "buildTarget": "apikiba:build:development"
             }
           },
           "defaultConfiguration": "development"
