@@ -1,59 +1,64 @@
-# ApiKiba
+# API Kiba 🦊
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.23.
+**API Kiba** is a premium, local-first API mocking and simulation tool designed to completely decouple frontend development from backend readiness. By configuring virtual servers and endpoints, frontend developers can simulate complex API behaviors, network latency, and edge-case status codes without writing any backend code.
 
-## Development server
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-To start a local development server, run:
+## ✨ Features
 
-```bash
-ng serve
-```
+- **Virtual Mock Servers**: Organize your mocked endpoints by project or environment (e.g., Staging vs. Production) using independent Mock Servers.
+- **Advanced Endpoint Builder**: Create RESTful endpoints with full control over HTTP methods (GET, POST, PUT, DELETE), custom URL paths, status codes, and JSON response bodies.
+- **Network Latency Simulation**: Hardcode artificial delays (in milliseconds) into your endpoints to see how your frontend handles loading states and sluggish network conditions.
+- **Interactive Simulator Console**: A Master-Detail dashboard that lets you trigger mock requests and visually observe the simulated loading skeleton followed by the final JSON payload.
+- **Modern State Management**: Built ground-up using Angular's reactivity model (Signals, `computed`, `effect`) and `@angular/forms/signals` for blazingly fast updates without `zone.js` bottlenecks.
+- **Premium UI & Dark Mode**: A sleek, beautifully crafted interface styled with Tailwind CSS, featuring full Dark/Light mode support and localized toast notifications.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Getting Started
 
-## Code scaffolding
+### Prerequisites
+Make sure you have Node.js and the Angular CLI installed on your machine.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Installation
+1. Clone the repository and navigate into the project directory:
+   ```bash
+   git clone <repository-url>
+   cd tenantflow
+   ```
 
-```bash
-ng generate component component-name
-```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. Start the development server:
+   ```bash
+   npm start
+   # or
+   ng serve
+   ```
 
-```bash
-ng generate --help
-```
+4. Open your browser and navigate to `http://localhost:4200/`.
 
-## Building
+## 🛠 Tech Stack
 
-To build the project run:
+- **Framework**: Angular 17+ (Standalone Components, Signals API)
+- **Styling**: Tailwind CSS
+- **Reactivity**: Signals, RxJS (for search debouncing)
+- **Persistence**: LocalStorage (persists servers and endpoints across sessions)
 
-```bash
-ng build
-```
+## 📖 How It Works
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. **Create a Server**: Start by navigating to the **Mock Servers** tab and creating a new virtual server with a base prefix (e.g., `/api/v1`).
+2. **Set Active Server**: On the main **Dashboard**, use the dropdown in the sidebar to set your newly created server as the active context.
+3. **Add Endpoints**: Click `New Endpoint` to define a route. Set the HTTP method, the desired delay, status code, and the JSON response it should return.
+4. **Simulate**: Select the endpoint from the sidebar to open it in the **Test Simulator**. Click *Send Test Request* to watch the artificial delay process before the mock payload resolves!
 
-## Running unit tests
+## 🤝 Contributing
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page if you want to contribute.
 
-```bash
-ng test
-```
+## 📝 License
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is open-source and available under the MIT License.
