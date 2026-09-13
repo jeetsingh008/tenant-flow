@@ -17,26 +17,11 @@
         <a routerLink="/" routerLinkActive="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10" [routerLinkActiveOptions]="{exact: true}" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1e2533] transition-colors duration-150 no-underline">Dashboard</a>
         <a routerLink="/mock-servers" routerLinkActive="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1e2533] transition-colors duration-150 no-underline">Mock Servers</a>
         <a routerLink="/documentation" routerLinkActive="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1e2533] transition-colors duration-150 no-underline">Documentation</a>
-        <a routerLink="/settings" routerLinkActive="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#1e2533] transition-colors duration-150 no-underline">Settings</a>
       </div>
     </div>
 
-    <!-- Right: Search + Avatar + Theme -->
+    <!-- Right: Theme -->
     <div class="flex items-center gap-4">
-      <div class="relative">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-[#484f58] transition-colors duration-200">
-          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <input
-          type="text"
-          [ngModel]="globalSearch()"
-          (ngModelChange)="globalSearch.set($event)"
-          placeholder="Global search"
-          class="pl-9 pr-4 py-1.5 rounded-md border border-gray-300 dark:border-[#30363d] bg-gray-50 dark:bg-[#0d1117] text-gray-900 dark:text-[#ededed] text-sm w-[200px] outline-none transition-colors duration-200 focus:border-blue-400 dark:focus:border-blue-500 placeholder:text-gray-400 dark:placeholder:text-[#484f58]"
-        />
-      </div>
-      <!-- Avatar placeholder -->
-      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">AF</div>
       <app-theme-toggle></app-theme-toggle>
     </div>
   </nav>
